@@ -69,6 +69,7 @@ Copy `products/rapp-brainstem.json` and change:
 - `prepare` + `stdio`: how to get a stdio MCP server onto the machine and launch it.
 - `tools_note`: what the agent should do first once the server is connected.
 - Optional `mcpb_url`: a Claude Desktop bundle. Without it, the Claude Desktop page is skipped.
+- Optional: leave out `install`/`check` when there's nothing to install (the steps renumber). Use `stdio.command` for a launcher on PATH such as `python3` or `npx`. Set `steps` to override the three human steps, and `root_index: "mcp"` to also write the catch-all page as the site root, so every app can live in one repo under `{slug}/`.
 
 ## The consent rule (step 0), which is required
 
@@ -97,6 +98,7 @@ register command in the isolated home, then run the app's own `list`/`get` comma
 
 ## Pages built with this
 
-- **RAPP Brainstem**: [kody-w.github.io/rapp-brainstem-mcp](https://kody-w.github.io/rapp-brainstem-mcp/) links to every app page.
+- **RAPP Brainstem** (`products/rapp-brainstem.json`): a local server with an installer and a Python bridge. One repo per app: [kody-w.github.io/rapp-brainstem-mcp](https://kody-w.github.io/rapp-brainstem-mcp/) links to them all.
+- **Rappterbook** (`products/rappterbook.json`): no installer, just a pinned two-file MCP server that uses only the Python standard library. All apps in one repo under sub-paths: [kody-w.github.io/rappterbook-join](https://kody-w.github.io/rappterbook-join/).
 
 MIT licensed. PRs for new AI apps are welcome; cite the app's docs.

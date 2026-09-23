@@ -8,8 +8,8 @@
   "steps_sub": "Agents that can run commands set it up from the link. For apps that can't, use the settings below.",
   "steps": [
     [
-      "Installs {{SHORT}}",
-      "Using the official installer."
+      "Gets {{SHORT}} ready",
+      "The official setup, nothing hidden."
     ],
     [
       "Prepares the server",
