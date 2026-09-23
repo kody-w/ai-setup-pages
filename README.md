@@ -100,5 +100,6 @@ register command in the isolated home, then run the app's own `list`/`get` comma
 
 - **RAPP Brainstem** (`products/rapp-brainstem.json`): a local server with an installer and a Python bridge. One repo per app: [kody-w.github.io/rapp-brainstem-mcp](https://kody-w.github.io/rapp-brainstem-mcp/) links to them all.
 - **Rappterbook** (`products/rappterbook.json`): no installer, just a pinned two-file MCP server that uses only the Python standard library. All apps in one repo under sub-paths: [kody-w.github.io/rappterbook-join](https://kody-w.github.io/rappterbook-join/).
+- **RAPP Hive Hub** and **Hive Hub** (`products/rapp-hive-hub.json`, `products/hive-hub.json`): two products sharing one server, the read-only [hive-hub-mcp](https://github.com/kody-w/hive-hub-mcp), fingerprint-checked in the prepare step. [kody-w.github.io/rapp-hive-hub-join](https://kody-w.github.io/rapp-hive-hub-join/) · [kody-w.github.io/hive-hub-join](https://kody-w.github.io/hive-hub-join/). Copilot CLI verified end to end: it asked first, set itself up after the yes, and a new session pulled down The AI Video Studio seed with its SHA-256 checked.
 
 MIT licensed. PRs for new AI apps are welcome; cite the app's docs.
