@@ -38,5 +38,6 @@
     {
       "p": "Restart the app or reload its MCP servers, and check <code>{{SERVER}}</code> is listed with its tools."
     }
-  ]
+  ],
+  "extra_html": "<p class=\"note\">Or pick your AI app for exact steps: {{HOST_LINKS}}</p>"
 }
