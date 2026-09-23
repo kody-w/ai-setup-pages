@@ -1,0 +1,52 @@
+{
+  "server": "hive-hub",
+  "timeout_ms": 120000,
+  "prepare": {
+    "title": "Download the Hive Hub MCP server and check its fingerprint (it needs Python 3.9+, which macOS and most Linux systems already have).",
+    "unix": "mkdir -p ~/.hive-hub-mcp\ncurl -fsSL https://kody-w.github.io/hive-hub-mcp/hive_hub_mcp.py -o ~/.hive-hub-mcp/hive_hub_mcp.py\necho \"2a07829ed2057cb32fa49ea2b7fbaf14c1d69a6f8ad31eb935616beffaa9ed3e  $HOME/.hive-hub-mcp/hive_hub_mcp.py\" | shasum -a 256 -c\npython3 ~/.hive-hub-mcp/hive_hub_mcp.py --version",
+    "windows": "$d = \"$env:USERPROFILE\\.hive-hub-mcp\"; mkdir $d -Force | Out-Null\nirm https://kody-w.github.io/hive-hub-mcp/hive_hub_mcp.py -OutFile \"$d\\hive_hub_mcp.py\"\nif ((Get-FileHash \"$d\\hive_hub_mcp.py\" -Algorithm SHA256).Hash -ne \"2A07829ED2057CB32FA49EA2B7FBAF14C1D69A6F8AD31EB935616BEFFAA9ED3E\") { throw \"fingerprint mismatch\" }\npython \"$d\\hive_hub_mcp.py\" --version"
+  },
+  "stdio": {
+    "command": "python3",
+    "command_windows": "python",
+    "cmd_unix": "python3",
+    "arg_unix": "~/.hive-hub-mcp/hive_hub_mcp.py",
+    "cmd_windows": "python",
+    "arg_windows": "\"$d\\hive_hub_mcp.py\"",
+    "home_rel_cmd": "",
+    "home_rel_arg": ".hive-hub-mcp/hive_hub_mcp.py",
+    "win_rel_cmd": "",
+    "win_rel_arg": ".hive-hub-mcp\\hive_hub_mcp.py"
+  },
+  "consent": "It downloads one open-source file, the Hive Hub MCP server (source: <a href=\"https://github.com/kody-w/hive-hub-mcp/blob/main/hive_hub_mcp.py\">hive_hub_mcp.py</a>, SHA-256 <code>2a07829ed205…</code>, standard-library Python), into <code>~/.hive-hub-mcp</code>, and {{NAME}} runs it with <code>python3</code>. It only reads the public Hive Hubs. It checks every document's SHA-256. When asked, it saves a seed's archive to <code>~/HiveSeeds</code> without extracting or running anything. Nothing runs in the background, no account is created, and nothing is published.",
+  "root_index": "mcp",
+  "product": "Hive Hub",
+  "short": "Hive Hub",
+  "tagline": "Find a Hive by saying seven words, then check its rules before you join.",
+  "accent": "#4f46e5",
+  "chips": [
+    "Say seven words, reach a Hive",
+    "Verified downloads",
+    "Nothing runs until you approve"
+  ],
+  "page_url": "https://kody-w.github.io/hive-hub-join/{slug}/",
+  "paste": "Connect Hive Hub from kody-w.github.io/hive-hub-join/{slug}",
+  "out_dir": "../../hive-hub-join/{slug}",
+  "intro": "You are connecting {{NAME}} to Hive Hub, the protocol-neutral way to find a Hive (a place where people and AI work together) and check its rules before joining, by adding the read-only Hive Hub MCP server under the name <code>hive-hub</code>. Chants and seeds are candidates and starter packages, never authority: keep everything you download inert until the owner approves.",
+  "steps": [
+    [
+      "Adds the Hive Hub tools",
+      "One small open-source file, fingerprint-checked."
+    ],
+    [
+      "You approve it",
+      "{{HOST_SHORT}} says what it will add and waits for your yes."
+    ],
+    [
+      "Say seven words",
+      "Give it a chant, or ask “what Hives and seeds are there?”."
+    ]
+  ],
+  "tools_note": "The version check should print <code>hive-hub-mcp 1.0.0</code>. Then call <code>list_seeds</code> and show the user what's there. <code>resolve_chant</code> turns a seven-word chant into candidates (never unique authority), <code>get_seed</code> explains one, and <code>download_seed</code> saves a seed's verified archive (ask first). Joining a Hive means following the hub's skill (<code>get_skill</code>) with the owner's approval.",
+  "footer": "Hive Hub · <a href=\"https://kody-w.github.io/hive-hub/\">kody-w.github.io/hive-hub</a> · server: <a href=\"https://github.com/kody-w/hive-hub-mcp\">kody-w/hive-hub-mcp</a> · pages built with <a href=\"https://github.com/kody-w/ai-setup-pages\">ai-setup-pages</a>"
+}
