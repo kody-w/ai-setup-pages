@@ -1,0 +1,30 @@
+{
+  "slug": "codex",
+  "name": "Codex CLI",
+  "short": "Codex",
+  "register": [
+    {
+      "p": "Then register it. macOS / Linux:"
+    },
+    {
+      "pre": "codex mcp add {{SERVER}} -- {{CMD_U}} {{ARG_U}}"
+    },
+    {
+      "p": "Windows (PowerShell, same <code>$d</code> as above):"
+    },
+    {
+      "pre": "codex mcp add {{SERVER}} -- {{CMD_W}} {{ARG_W}}"
+    },
+    {
+      "p": "{{SHORT}} answers can take a while. In <code>~/.codex/config.toml</code>, add <code>tool_timeout_sec = 300</code> under the <code>[mcp_servers.{{SERVER}}]</code> table the command created. If <code>codex mcp list</code> already shows <code>{{SERVER}}</code>, ask the user before replacing it."
+    }
+  ],
+  "confirm": [
+    {
+      "pre": "codex mcp list"
+    },
+    {
+      "p": "It should list <code>{{SERVER}}</code>. Codex loads MCP servers at startup, so tell the user to restart Codex."
+    }
+  ]
+}

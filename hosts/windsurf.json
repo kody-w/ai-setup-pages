@@ -1,0 +1,23 @@
+{
+  "slug": "windsurf",
+  "name": "Windsurf",
+  "short": "Windsurf",
+  "paste_label": "Paste this into Windsurf's Cascade chat",
+  "steps_title": "Cascade sets it up for you.",
+  "register": [
+    {
+      "p": "Then register it in Windsurf's MCP config: <code>~/.codeium/windsurf/mcp_config.json</code>, or on newer builds <code>~/.config/devin/mcp_config.json</code> (Windows: <code>%APPDATA%\\devin\\mcp_config.json</code>). Use whichever exists; if neither, ask the user to open Cascade → <b>MCPs</b> → Configure, which creates it. <b>Merge</b> this into the file, keeping every server already there. Create the file if it doesn't exist. If a <code>{{SERVER}}</code> entry already exists, ask the user before replacing it."
+    },
+    {
+      "pre": "{\n  \"mcpServers\": {\n    \"{{SERVER}}\": {\n      \"command\": \"{{ABS_CMD_U}}\",\n      \"args\": [\n        \"{{ABS_ARG_U}}\"\n      ]\n    }\n  }\n}"
+    },
+    {
+      "p": "{{ABS_NOTE}} {{WIN_ABS_NOTE}}"
+    }
+  ],
+  "confirm": [
+    {
+      "p": "Ask the user to open Cascade → <b>MCPs</b> and press refresh. <code>{{SERVER}}</code> should show its tools."
+    }
+  ]
+}

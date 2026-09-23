@@ -1,0 +1,29 @@
+{
+  "slug": "vscode",
+  "name": "VS Code",
+  "short": "Copilot in VS Code",
+  "paste_label": "Paste this into Copilot Chat (Agent mode) in VS Code",
+  "steps_title": "Copilot sets it up for you.",
+  "register": [
+    {
+      "p": "Then register it. macOS / Linux:"
+    },
+    {
+      "pre": "code --add-mcp \"{\\\"name\\\":\\\"{{SERVER}}\\\",\\\"command\\\":\\\"{{HOME_CMD_U}}\\\",\\\"args\\\":[\\\"{{HOME_ARG_U}}\\\"]}\""
+    },
+    {
+      "p": "Windows (PowerShell, same <code>$d</code> as above):"
+    },
+    {
+      "pre": "code --add-mcp (@{name='{{SERVER}}'; command={{CMD_W}}; args=@({{ARG_W}})} | ConvertTo-Json -Compress)"
+    },
+    {
+      "p": "This writes the user-level <code>mcp.json</code>, whose top-level key is <code>servers</code>. If <code>{{SERVER}}</code> is already in that file (command <em>MCP: Open User Configuration</em>), ask the user before replacing it."
+    }
+  ],
+  "confirm": [
+    {
+      "p": "Ask the user to run <b>MCP: List Servers</b> from the Command Palette and start <code>{{SERVER}}</code> if it isn't running. New chats in Agent mode then have its tools."
+    }
+  ]
+}

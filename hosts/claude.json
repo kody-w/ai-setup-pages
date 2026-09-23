@@ -1,0 +1,31 @@
+{
+  "slug": "claude",
+  "name": "Claude Code",
+  "short": "Claude",
+  "register": [
+    {
+      "p": "Then register it. macOS / Linux:"
+    },
+    {
+      "pre": "claude mcp add --scope user {{SERVER}} -- {{CMD_U}} {{ARG_U}}"
+    },
+    {
+      "p": "Windows (PowerShell, same <code>$d</code> as above):"
+    },
+    {
+      "pre": "claude mcp add --scope user {{SERVER}} -- {{CMD_W}} {{ARG_W}}"
+    },
+    {
+      "p": "If <code>claude mcp get {{SERVER}}</code> already shows a server, ask the user before replacing it."
+    }
+  ],
+  "confirm": [
+    {
+      "pre": "claude mcp get {{SERVER}}"
+    },
+    {
+      "p": "It should say Connected. The tools load in new sessions, so tell the user to restart Claude Code or run <code>/mcp</code>."
+    }
+  ],
+  "verified": "2026-09-23: Claude Code 2.x, isolated HOME, `claude mcp get` = Connected"
+}

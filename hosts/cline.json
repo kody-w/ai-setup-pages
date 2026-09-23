@@ -1,0 +1,21 @@
+{
+  "slug": "cline",
+  "name": "Cline",
+  "short": "Cline",
+  "register": [
+    {
+      "p": "Then register it in Cline's MCP settings. For the Cline CLI that's <code>~/.cline/data/settings/cline_mcp_settings.json</code>. For the VS Code extension, ask the user to click <b>MCP Servers → Configure MCP Servers</b>, which opens the file (<code>…/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json</code>). <b>Merge</b> this into the file, keeping every server already there. Create the file if it doesn't exist. If a <code>{{SERVER}}</code> entry already exists, ask the user before replacing it."
+    },
+    {
+      "pre": "{\n  \"mcpServers\": {\n    \"{{SERVER}}\": {\n      \"command\": \"{{ABS_CMD_U}}\",\n      \"args\": [\n        \"{{ABS_ARG_U}}\"\n      ],\n      \"timeout\": 300,\n      \"disabled\": false\n    }\n  }\n}"
+    },
+    {
+      "p": "{{ABS_NOTE}} {{WIN_ABS_NOTE}} <code>timeout</code> is in seconds."
+    }
+  ],
+  "confirm": [
+    {
+      "p": "The MCP Servers panel should show <code>{{SERVER}}</code> with a green dot and its tools. Cline reloads the file on save."
+    }
+  ]
+}

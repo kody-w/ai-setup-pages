@@ -1,0 +1,30 @@
+{
+  "slug": "claude-desktop",
+  "name": "Claude Desktop",
+  "short": "Claude",
+  "manual": true,
+  "lede": "{{TAGLINE}} Connected to Claude Desktop.",
+  "requires": [
+    "MCPB_URL"
+  ],
+  "paste_label": "1. Install {{PRODUCT}}",
+  "paste": "{{INSTALL_U}}",
+  "extra_html": "<p class=\"note\">On Windows, paste into PowerShell: <code>{{INSTALL_W}}</code></p>\n  <p class=\"paste-label\">2. Add it to Claude Desktop</p>\n  <a class=\"dl\" href=\"{{MCPB_URL}}\" download>Download the {{SHORT}} extension</a>\n  <p class=\"note\">Double-click the downloaded file. Claude Desktop opens it; click <b>Install</b>.</p>",
+  "steps_title": "Two steps, then just ask.",
+  "steps_sub": "Install {{PRODUCT}}, then add the extension that connects Claude to it.",
+  "steps": [
+    [
+      "Install {{SHORT}}",
+      "Paste the line above into Terminal."
+    ],
+    [
+      "Add the extension",
+      "Download it, double-click, click Install. No settings to edit."
+    ],
+    [
+      "Ask Claude",
+      "Try “Ask my {{SHORT}} what it can do.”"
+    ]
+  ],
+  "agent_html": "<p>Claude Desktop can't run an installer itself, so this page is for the person. If you are an AI agent that <em>can</em> run shell commands, help them like this, asking before each step:</p>\n<h3>1. Install {{SHORT}}</h3>\n<pre>{{INSTALL_U}}</pre>\n<p>Windows (PowerShell): <code>{{INSTALL_W}}</code>. Skip this if <code>{{CHECK}}</code> already answers.</p>\n<h3>2. Install the extension</h3>\n<p>Download <a href=\"{{MCPB_URL}}\">the .mcpb bundle</a> and open it (<code>open file.mcpb</code> on macOS). Claude Desktop shows an install dialog; the user clicks <b>Install</b>.</p>\n<h3>3. Confirm</h3>\n<p>In Claude Desktop, <b>Settings → Extensions</b> shows it enabled. Ask Claude: “Ask my {{SHORT}} what it can do.”</p>"
+}

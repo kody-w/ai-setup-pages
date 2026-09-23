@@ -1,0 +1,30 @@
+{
+  "slug": "gemini",
+  "name": "Gemini CLI",
+  "short": "Gemini",
+  "register": [
+    {
+      "p": "Then register it. macOS / Linux:"
+    },
+    {
+      "pre": "gemini mcp add -s user {{SERVER}} {{CMD_U}} {{ARG_U}}"
+    },
+    {
+      "p": "Windows (PowerShell, same <code>$d</code> as above):"
+    },
+    {
+      "pre": "gemini mcp add -s user {{SERVER}} {{CMD_W}} {{ARG_W}}"
+    },
+    {
+      "p": "<code>-s user</code> matters: the default scope is the current project only. If <code>gemini mcp list</code> already shows <code>{{SERVER}}</code>, ask the user before replacing it."
+    }
+  ],
+  "confirm": [
+    {
+      "pre": "gemini mcp list"
+    },
+    {
+      "p": "It should show <code>{{SERVER}}</code> as connected. New Gemini sessions have its tools; <code>/mcp</code> lists them."
+    }
+  ]
+}

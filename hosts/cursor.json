@@ -1,0 +1,22 @@
+{
+  "slug": "cursor",
+  "name": "Cursor",
+  "short": "Cursor",
+  "paste_label": "Paste this into Cursor's Agent chat",
+  "register": [
+    {
+      "p": "Then register it in <code>~/.cursor/mcp.json</code> (Windows: <code>%USERPROFILE%\\.cursor\\mcp.json</code>). <b>Merge</b> this into the file, keeping every server already there. Create the file if it doesn't exist. If a <code>{{SERVER}}</code> entry already exists, ask the user before replacing it."
+    },
+    {
+      "pre": "{\n  \"mcpServers\": {\n    \"{{SERVER}}\": {\n      \"type\": \"stdio\",\n      \"command\": \"{{ABS_CMD_U}}\",\n      \"args\": [\n        \"{{ABS_ARG_U}}\"\n      ]\n    }\n  }\n}"
+    },
+    {
+      "p": "{{ABS_NOTE}} {{WIN_ABS_NOTE}}"
+    }
+  ],
+  "confirm": [
+    {
+      "p": "Ask the user to open <b>Cursor Settings → MCP</b> (or Tools &amp; Integrations) and check <code>{{SERVER}}</code> shows as enabled with its tools. Reload the window if it doesn't appear."
+    }
+  ]
+}

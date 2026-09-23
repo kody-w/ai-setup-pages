@@ -1,0 +1,42 @@
+{
+  "slug": "mcp",
+  "name": "any MCP app",
+  "short": "Your AI",
+  "lede": "{{TAGLINE}} Connected to any AI app that supports MCP.",
+  "paste_label": "Paste this into any AI agent that can run commands",
+  "steps_title": "Works with any MCP app.",
+  "steps_sub": "Agents that can run commands set it up from the link. For apps that can't, use the settings below.",
+  "steps": [
+    [
+      "Installs {{SHORT}}",
+      "Using the official installer."
+    ],
+    [
+      "Prepares the server",
+      "The same local MCP server for every app."
+    ],
+    [
+      "Registers it",
+      "In your app's MCP settings, under the name <b>{{SERVER}}</b>."
+    ]
+  ],
+  "register": [
+    {
+      "p": "Then register it with the user's AI app as a <b>local (stdio) MCP server</b> named <code>{{SERVER}}</code>. If the app has a command for this (for example <code>&lt;app&gt; mcp add {{SERVER}} -- &lt;command&gt; &lt;arg&gt;</code>), use it. Otherwise merge it into the app's MCP config file, keeping every server already there; if a <code>{{SERVER}}</code> entry exists, ask the user before replacing it. Most apps use this shape:"
+    },
+    {
+      "pre": "{\n  \"mcpServers\": {\n    \"{{SERVER}}\": {\n      \"command\": \"{{ABS_CMD_U}}\",\n      \"args\": [\n        \"{{ABS_ARG_U}}\"\n      ]\n    }\n  }\n}"
+    },
+    {
+      "p": "{{ABS_NOTE}} {{WIN_ABS_NOTE}} Some apps name the top-level key <code>servers</code> or <code>mcp</code>; follow the app's own docs for the key and file location."
+    },
+    {
+      "p": "Per-app pages with exact steps: {{HOST_LINKS}}."
+    }
+  ],
+  "confirm": [
+    {
+      "p": "Restart the app or reload its MCP servers, and check <code>{{SERVER}}</code> is listed with its tools."
+    }
+  ]
+}

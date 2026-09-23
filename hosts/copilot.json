@@ -1,0 +1,31 @@
+{
+  "slug": "copilot",
+  "name": "Copilot CLI",
+  "short": "Copilot",
+  "register": [
+    {
+      "p": "Then register it. macOS / Linux:"
+    },
+    {
+      "pre": "copilot mcp add --timeout {{TIMEOUT_MS}} {{SERVER}} -- {{CMD_U}} {{ARG_U}}"
+    },
+    {
+      "p": "Windows (PowerShell, same <code>$d</code> as above):"
+    },
+    {
+      "pre": "copilot mcp add --timeout {{TIMEOUT_MS}} {{SERVER}} -- {{CMD_W}} {{ARG_W}}"
+    },
+    {
+      "p": "If <code>copilot mcp get {{SERVER}}</code> already shows a server, ask the user before replacing it."
+    }
+  ],
+  "confirm": [
+    {
+      "pre": "copilot mcp get {{SERVER}}"
+    },
+    {
+      "p": "It should show the server as Enabled. The tools load in new sessions, so tell the user to restart Copilot CLI (or check with <code>/mcp</code>)."
+    }
+  ],
+  "verified": "2026-09-23: Copilot CLI 1.0.88 set itself up from the paste line alone; a fresh session called the tool"
+}

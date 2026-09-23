@@ -1,0 +1,21 @@
+{
+  "slug": "goose",
+  "name": "Goose",
+  "short": "Goose",
+  "register": [
+    {
+      "p": "Then register it in <code>~/.config/goose/config.yaml</code> (Windows: <code>%APPDATA%\\Block\\goose\\config\\config.yaml</code>). <b>Merge</b> this into the file, keeping every extension already there. Create the file if it doesn't exist. If a <code>{{SERVER}}</code> entry already exists, ask the user before replacing it. Add this under the existing <code>extensions:</code> key:"
+    },
+    {
+      "pre": "  {{SERVER}}:\n    name: {{SERVER}}\n    type: stdio\n    cmd: {{ABS_CMD_U}}\n    args: [\"{{ABS_ARG_U}}\"]\n    enabled: true\n    bundled: false\n    env_keys: []\n    envs: {}\n    timeout: 300"
+    },
+    {
+      "p": "{{ABS_NOTE}} <code>timeout</code> is in seconds."
+    }
+  ],
+  "confirm": [
+    {
+      "p": "Goose loads extensions when a session starts. Tell the user to start a new session and check <code>{{SERVER}}</code> is listed (<code>goose configure</code> → Toggle Extensions)."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "opencode",
+  "name": "OpenCode",
+  "short": "OpenCode",
+  "register": [
+    {
+      "p": "Then register it in <code>~/.config/opencode/opencode.json</code>. <b>Merge</b> this into the file, keeping every server already there. Create the file if it doesn't exist. If a <code>{{SERVER}}</code> entry already exists, ask the user before replacing it."
+    },
+    {
+      "pre": "{\n  \"$schema\": \"https://opencode.ai/config.json\",\n  \"mcp\": {\n    \"{{SERVER}}\": {\n      \"type\": \"local\",\n      \"command\": [\n        \"{{ABS_CMD_U}}\",\n        \"{{ABS_ARG_U}}\"\n      ],\n      \"enabled\": true,\n      \"timeout\": 300000\n    }\n  }\n}"
+    },
+    {
+      "p": "{{ABS_NOTE}} {{WIN_ABS_NOTE}} OpenCode's key is <code>mcp</code>, the type is <code>local</code>, and <code>command</code> is one array holding both paths. <code>timeout</code> is in milliseconds."
+    }
+  ],
+  "confirm": [
+    {
+      "pre": "opencode mcp list"
+    },
+    {
+      "p": "It should list <code>{{SERVER}}</code> as connected. Restart OpenCode to load it."
+    }
+  ]
+}

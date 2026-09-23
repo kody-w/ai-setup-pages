@@ -1,0 +1,21 @@
+{
+  "slug": "kiro",
+  "name": "Kiro",
+  "short": "Kiro",
+  "register": [
+    {
+      "p": "Then register it in <code>~/.kiro/settings/mcp.json</code> (Windows: <code>%USERPROFILE%\\.kiro\\settings\\mcp.json</code>). <b>Merge</b> this into the file, keeping every server already there. Create the file if it doesn't exist. If a <code>{{SERVER}}</code> entry already exists, ask the user before replacing it."
+    },
+    {
+      "pre": "{\n  \"mcpServers\": {\n    \"{{SERVER}}\": {\n      \"command\": \"{{ABS_CMD_U}}\",\n      \"args\": [\n        \"{{ABS_ARG_U}}\"\n      ],\n      \"disabled\": false,\n      \"autoApprove\": []\n    }\n  }\n}"
+    },
+    {
+      "p": "{{ABS_NOTE}} {{WIN_ABS_NOTE}}"
+    }
+  ],
+  "confirm": [
+    {
+      "p": "Kiro reloads MCP config on save. Ask the user to check the <b>MCP servers</b> tab in the Kiro panel shows <code>{{SERVER}}</code> connected."
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "product": "RAPP Brainstem",
+  "short": "Brainstem",
+  "server": "brainstem",
+  "tagline": "Your own AI agent server, running on your computer.",
+  "accent": "#0f766e",
+  "chips": [
+    "Runs on your machine",
+    "Uses your GitHub Copilot",
+    "No API key"
+  ],
+  "page_url": "https://kody-w.github.io/rapp-brainstem-{slug}/",
+  "paste": "Set up the RAPP Brainstem from kody-w.github.io/rapp-brainstem-{slug}",
+  "out_dir": "../../rapp-brainstem-{slug}",
+  "intro": "You are setting up the RAPP Brainstem (RAPP = Rapid Agent Prototype Platform) for the user and connecting it to {{NAME}} as an MCP server named <code>brainstem</code>. Follow these steps in order. Ask the user before approving any sign-in for them, and never type their credentials. The user needs a GitHub account with GitHub Copilot.",
+  "consent": "It installs the RAPP Brainstem, an open-source local agent server (source: <a href=\"https://github.com/kody-w/rapp-installer\">github.com/kody-w/rapp-installer</a>), into <code>~/.brainstem</code>. It serves on <code>localhost:7071</code> and signs in with their GitHub account, which they approve themselves in the browser. It also adds a 70-line bridge (source: <a href=\"https://github.com/kody-w/rapp-brainstem-claude/blob/main/brainstem_mcp.py\">brainstem_mcp.py</a>) so {{NAME}} can talk to it.",
+  "check": {
+    "cmd": "curl -sf http://localhost:7071/health",
+    "note": "If this returns JSON with <code>\"status\":\"ok\"</code>, skip to step 3. Don't reinstall over a running Brainstem, because the installer restarts it."
+  },
+  "install": {
+    "unix": "curl -fsSL https://kody-w.github.io/rapp-installer/install.sh | bash",
+    "windows": "irm https://kody-w.github.io/rapp-installer/install.ps1 | iex",
+    "note": "Run it in the background. When it finishes installing it keeps running as the server. Watch its output. If it prints a GitHub device code, show the user the code and <a href=\"https://github.com/login/device\">https://github.com/login/device</a>, then wait while they approve it. Poll <code>curl -sf http://localhost:7071/health</code> every few seconds until it answers. A first install can take a few minutes. If sign-in was skipped, the user can finish it at <a href=\"http://localhost:7071/login\">http://localhost:7071/login</a>."
+  },
+  "prepare": {
+    "title": "Install the bridge next to the Brainstem.",
+    "unix": "mkdir -p ~/.brainstem/mcp-bridge\ncurl -fsSL https://kody-w.github.io/rapp-brainstem-claude/brainstem_mcp.py -o ~/.brainstem/mcp-bridge/brainstem_mcp.py\n~/.brainstem/venv/bin/python -m venv ~/.brainstem/mcp-bridge/venv\n~/.brainstem/mcp-bridge/venv/bin/pip install -q \"mcp>=2,<3\" requests",
+    "windows": "$d = \"$env:USERPROFILE\\.brainstem\\mcp-bridge\"; mkdir $d -Force | Out-Null\nirm https://kody-w.github.io/rapp-brainstem-claude/brainstem_mcp.py -OutFile \"$d\\brainstem_mcp.py\"\n& \"$env:USERPROFILE\\.brainstem\\venv\\Scripts\\python.exe\" -m venv \"$d\\venv\"\n& \"$d\\venv\\Scripts\\pip.exe\" install -q \"mcp>=2,<3\" requests"
+  },
+  "stdio": {
+    "cmd_unix": "~/.brainstem/mcp-bridge/venv/bin/python",
+    "arg_unix": "~/.brainstem/mcp-bridge/brainstem_mcp.py",
+    "cmd_windows": "\"$d\\venv\\Scripts\\python.exe\"",
+    "arg_windows": "\"$d\\brainstem_mcp.py\"",
+    "home_rel_cmd": ".brainstem/mcp-bridge/venv/bin/python",
+    "home_rel_arg": ".brainstem/mcp-bridge/brainstem_mcp.py",
+    "win_rel_cmd": ".brainstem\\mcp-bridge\\venv\\Scripts\\python.exe",
+    "win_rel_arg": ".brainstem\\mcp-bridge\\brainstem_mcp.py"
+  },
+  "timeout_ms": 300000,
+  "tools_note": "Then call the <code>capabilities</code> tool and tell the user which agents their Brainstem has. The bridge gives two tools. <code>chat(user_input, session_id?)</code> sends a plain-language request; pass the returned <code>session_id</code> to continue the conversation. <code>capabilities()</code> reports status, model and agents.",
+  "mcpb_url": "brainstem.mcpb",
+  "footer": "RAPP Brainstem · installer from <a href=\"https://github.com/kody-w/rapp-installer\">kody-w/rapp-installer</a> · pages built with <a href=\"https://github.com/kody-w/ai-setup-pages\">ai-setup-pages</a>"
+}
