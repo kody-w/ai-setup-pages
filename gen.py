@@ -58,13 +58,23 @@ def fill(text: str, t: dict) -> str:
 
 
 def network_header(repo: str) -> str:
-    try:
-        from rapp1_network.headers import header_block
-    except ModuleNotFoundError as exc:
-        raise SystemExit(
-            "README generation for this product needs rapp1_network on PYTHONPATH"
-        ) from exc
-    return header_block(repo)
+    """Return the public RAPP/1 README navigation block for one repository.
+
+    The block links a public status badge at
+    https://kody-w.github.io/rapp-hive-public/portfolio/badges/<repo>.svg
+    to that repo's public portfolio page at
+    https://github.com/kody-w/rapp-hive-public/blob/main/portfolio/repos/<repo>.md,
+    then adds the public "Start here" link. Consumers treat the marked block
+    from start to end as navigation, not README content.
+    """
+    return (
+        "<!-- rapp1:network-header:start -->\n"
+        f"[![RAPP/1](https://kody-w.github.io/rapp-hive-public/portfolio/badges/{repo}.svg)]"
+        f"(https://github.com/kody-w/rapp-hive-public/blob/main/portfolio/repos/{repo}.md)"
+        " · **New to RAPP?** [Start here: get your Brainstem →]"
+        "(https://github.com/kody-w/rapp-installer#start-here)\n"
+        "<!-- rapp1:network-header:end -->"
+    )
 
 
 def pre(text: str) -> str:
