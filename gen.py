@@ -57,6 +57,16 @@ def fill(text: str, t: dict) -> str:
     return re.sub(r"\{\{([A-Z_]+)\}\}", lambda m: t.get(m.group(1), m.group(0)), text)
 
 
+def network_header(repo: str) -> str:
+    try:
+        from rapp1_network.headers import header_block
+    except ModuleNotFoundError as exc:
+        raise SystemExit(
+            "README generation for this product needs rapp1_network on PYTHONPATH"
+        ) from exc
+    return header_block(repo)
+
+
 def pre(text: str) -> str:
     return f"<pre>{html.escape(text.strip())}</pre>"
 
@@ -124,6 +134,35 @@ def render(product: dict, host: dict, hosts: list[dict]) -> str:
     return re.sub(r"\{\{([A-Z_]+)\}\}", lambda m: page.get(m.group(1), m.group(0)), TEMPLATE)
 
 
+def readme_tokens(product: dict, host: dict, hosts: list[dict]) -> dict:
+    t = tokens(product, host, hosts)
+    t.update({
+        "SLUG": host["slug"],
+        "REPO": product.get("readme_repo", "").format(slug=host["slug"]),
+    })
+    if t["REPO"]:
+        t["NETWORK_HEADER"] = network_header(t["REPO"])
+    return t
+
+
+def render_readme(product: dict, host: dict, hosts: list[dict]) -> str | None:
+    template = host.get("readme_template") or product.get("readme_template")
+    if not template:
+        return None
+    return fill(template, readme_tokens(product, host, hosts)).rstrip() + "\n"
+
+
+def render_root_readme(product: dict, hosts: list[dict]) -> str | None:
+    template = product.get("root_readme_template")
+    if not template:
+        return None
+    root_host = next((host for host in hosts if host["slug"] == product.get("root_index")), hosts[0])
+    t = readme_tokens(product, root_host, hosts)
+    t["REPO"] = product.get("root_readme_repo", t["REPO"])
+    t["NETWORK_HEADER"] = network_header(t["REPO"])
+    return fill(template, t).rstrip() + "\n"
+
+
 def main(argv: list[str]) -> int:
     if not argv:
         print(__doc__)
@@ -144,10 +183,20 @@ def main(argv: list[str]) -> int:
         out.write_text(render(product, host, hosts))
         leftover = sorted(set(re.findall(r"\{\{[A-Z_]+\}\}", out.read_text())))
         print("wrote", out, f"UNFILLED {leftover}" if leftover else "")
+        readme = render_readme(product, host, hosts)
+        if readme is not None:
+            readme_out = out.parent / "README.md"
+            readme_out.write_text(readme)
+            print("wrote", readme_out)
         if product.get("root_index") == host["slug"]:
             root = (product_path.parent / product["out_dir"].format(slug="")).resolve() / "index.html"
             root.write_text(out.read_text())
             print("wrote", root, "(root index)")
+            root_readme = render_root_readme(product, hosts)
+            if root_readme is not None:
+                root_readme_out = root.parent / "README.md"
+                root_readme_out.write_text(root_readme)
+                print("wrote", root_readme_out, "(root README)")
     return 0
 
 
