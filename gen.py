@@ -28,7 +28,7 @@ def load_hosts() -> list[dict]:
 def tokens(product: dict, host: dict, hosts: list[dict]) -> dict:
     s = product["stdio"]
     links = ", ".join(f'<a href="{product["page_url"].format(slug=h["slug"])}">{html.escape(h["name"])}</a>'
-                      for h in hosts if h["slug"] != "mcp")
+                      for h in hosts if h["slug"] != "mcp" and not h.get("retired"))
     t = {
         "PRODUCT": product["product"], "SHORT": product["short"], "SERVER": product["server"],
         "TAGLINE": product["tagline"], "NAME": host["name"], "HOST_SHORT": host["short"],
@@ -43,6 +43,9 @@ def tokens(product: dict, host: dict, hosts: list[dict]) -> dict:
                          "and the argument is <code>C:\\\\Users\\\\you\\\\" + s["win_rel_arg"].replace("\\", "\\\\") + "</code> "
                          "(backslashes doubled inside JSON)."),
         "TIMEOUT_MS": str(product.get("timeout_ms", 300000)),
+        # Seconds, never below 300: some apps (Antigravity CLI) use one number for both the connect and the
+        # tool-call limit, and their connect default is 300 s, so a smaller value would shorten startup.
+        "TIMEOUT_S": str(max(300, int(product.get("timeout_ms", 300000)) // 1000)),
         "INSTALL_U": (product.get("install") or {}).get("unix", ""), "INSTALL_W": (product.get("install") or {}).get("windows", ""),
         "CHECK": (product.get("check") or {}).get("cmd", ""), "MCPB_URL": product.get("mcpb_url", ""), "HOST_LINKS": links,
     }
@@ -116,6 +119,25 @@ def agent_section(product: dict, host: dict, t: dict) -> str:
     return "\n\n".join(parts)
 
 
+def retired_notice(product: dict, host: dict, hosts: list[dict]) -> tuple[str, str]:
+    """For a host whose app was retired: (hero note for people, first paragraph for the agent).
+
+    The page stays published so old links keep working; it only points to the replacement.
+    """
+    r = host.get("retired")
+    if not r:
+        return "", ""
+    new = next(h for h in hosts if h["slug"] == r["use"])
+    url = product["page_url"].format(slug=new["slug"])
+    when = f'{html.escape(host["name"])} was retired for {r["who"]} on {r["date"]}.'
+    people = (f'<p class="note"><b>{when}</b> Use the <a href="{url}">{html.escape(product["short"])} for '
+              f'{html.escape(new["name"])}</a> page instead. {r.get("note", "")}</p>')
+    agent = (f'<p><b>{when}</b> If the user signs in to {html.escape(host["name"])} with one of those accounts, '
+             f'stop here and use {url} instead. Continue on this page only if their {html.escape(host["name"])} '
+             f'still works (for example a {r["still"]}).</p>')
+    return people, agent
+
+
 def render(product: dict, host: dict, hosts: list[dict]) -> str:
     t = tokens(product, host, hosts)
     slug = host["slug"]
@@ -125,6 +147,7 @@ def render(product: dict, host: dict, hosts: list[dict]) -> str:
         ["You approve it", f"{short} says what it will install and waits for your yes."],
         [f"Connects {short}", f"After that, ask {short} to “ask my {product['short']}…” and it hands the work over."],
     ]
+    retired_people, retired_agent = retired_notice(product, host, hosts)
     page = {
         "PRODUCT": html.escape(product["product"]), "SHORT": html.escape(product["short"]),
         "NAME": html.escape(host["name"]), "PAGE_URL": product["page_url"].format(slug=slug),
@@ -137,8 +160,8 @@ def render(product: dict, host: dict, hosts: list[dict]) -> str:
         "STEPS_SUB": fill(host.get("steps_sub", "Give it the link. It reads this page, tells you what it will install, "
                                                 "and waits for your yes before it runs anything."), t),
         "STEPS": "\n".join(f"    <li><b>{fill(a, t)}</b><small>{fill(b, t)}</small></li>" for a, b in steps),
-        "AGENT": fill(host["agent_html"], t) if host.get("agent_html") else agent_section(product, host, t),
-        "EXTRA": fill(host.get("extra_html", ""), t),
+        "AGENT": retired_agent + (fill(host["agent_html"], t) if host.get("agent_html") else agent_section(product, host, t)),
+        "EXTRA": retired_people + fill(host.get("extra_html", ""), t),
         "FOOTER": product.get("footer", ""),
     }
     return re.sub(r"\{\{([A-Z_]+)\}\}", lambda m: page.get(m.group(1), m.group(0)), TEMPLATE)

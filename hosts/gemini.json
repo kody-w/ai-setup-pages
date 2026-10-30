@@ -26,5 +26,12 @@
     {
       "p": "It should show <code>{{SERVER}}</code> as connected. New Gemini sessions have its tools; <code>/mcp</code> lists them."
     }
-  ]
+  ],
+  "retired": {
+    "date": "2026-06-18",
+    "who": "personal Google accounts (free, Google AI Pro and Google AI Ultra)",
+    "use": "antigravity",
+    "still": "Gemini Code Assist Standard or Enterprise license, or a paid Gemini API key",
+    "note": "Gemini Code Assist Standard or Enterprise licenses and paid Gemini API keys still work, so the steps below stay for them."
+  }
 }

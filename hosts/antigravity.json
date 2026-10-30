@@ -1,0 +1,25 @@
+{
+  "slug": "antigravity",
+  "name": "Antigravity CLI",
+  "short": "Antigravity",
+  "paste_label": "Paste this into Antigravity CLI (agy)",
+  "register": [
+    {
+      "p": "Then register it in Antigravity CLI's global MCP file, <code>~/.gemini/config/mcp_config.json</code> (Windows: <code>%USERPROFILE%\\.gemini\\config\\mcp_config.json</code>). <b>Merge</b> this into the file, keeping every server already there. Create the file and its folder if they don't exist. If a <code>{{SERVER}}</code> entry already exists (the first launch of <code>agy</code> and <code>agy plugin import gemini</code> can carry one over from Gemini CLI), ask the user before replacing it."
+    },
+    {
+      "pre": "{\n  \"mcpServers\": {\n    \"{{SERVER}}\": {\n      \"command\": \"{{ABS_CMD_U}}\",\n      \"args\": [\n        \"{{ABS_ARG_U}}\"\n      ],\n      \"timeoutSeconds\": {{TIMEOUT_S}}\n    }\n  }\n}"
+    },
+    {
+      "p": "{{ABS_NOTE}} {{WIN_ABS_NOTE}} <code>timeoutSeconds</code> matters: {{SHORT}} answers can take a while, and the default limit for one tool call is 180 seconds."
+    }
+  ],
+  "confirm": [
+    {
+      "pre": "cat ~/.gemini/config/mcp_config.json"
+    },
+    {
+      "p": "It should show <code>{{SERVER}}</code> under <code>mcpServers</code> and still be valid JSON. Then ask the user to type <code>/mcp</code> in Antigravity CLI and reload, or start a new <code>agy</code> session. <code>{{SERVER}}</code> should show as active with its tools."
+    }
+  ]
+}

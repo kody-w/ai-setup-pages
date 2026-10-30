@@ -23,7 +23,8 @@ python gen.py products/rapp-brainstem.json codex    # one app
 | --- | --- | --- | --- |
 | Claude Code | `claude` | `claude mcp add --scope user` | **verified**: `claude mcp get` shows Connected |
 | GitHub Copilot CLI | `copilot` | `copilot mcp add` | **verified end to end**: set itself up from the paste line alone, and a new session called the tool |
-| Gemini CLI | `gemini` | `gemini mcp add -s user` | **registration verified**: `gemini mcp list` shows Connected |
+| Antigravity CLI (`agy`) | `antigravity` | `~/.gemini/config/mcp_config.json` | from docs ([Antigravity MCP docs](https://antigravity.google/docs/mcp)); not yet run |
+| Gemini CLI | `gemini` | `gemini mcp add -s user` | **retired for personal accounts on 2026-06-18** ([Google's notice](https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/)); page kept, points to Antigravity CLI. Registration was verified before then |
 | VS Code (Copilot agent mode) | `vscode` | `code --add-mcp` | **registration verified**: writes `servers.<name>` to user `mcp.json` |
 | Claude Desktop | `claude-desktop` | one-click `.mcpb` bundle | bundle validated with `mcpb validate`, protocol tested; install dialog not yet clicked |
 | Codex CLI | `codex` | `codex mcp add` | from docs; not yet run |
@@ -48,9 +49,10 @@ if it has a JSON config file. Then fill in:
   - `{{CMD_U}} {{ARG_U}}` / `{{CMD_W}} {{ARG_W}}` are the launch command and argument for a shell on Unix and Windows.
   - `{{ABS_CMD_U}} {{ABS_ARG_U}}` are the absolute paths for config files, with `/Users/you` as a placeholder. Put `{{ABS_NOTE}}` and `{{WIN_ABS_NOTE}}` alongside them.
   - `{{HOME_CMD_U}}` is the `$HOME/...` form, for commands that go through a shell.
-  - `{{TIMEOUT_MS}}` is the product's tool timeout.
+  - `{{TIMEOUT_MS}}` / `{{TIMEOUT_S}}` is the product's tool timeout in milliseconds / seconds (seconds never below 300).
 - `confirm`: how the agent checks that the server registered.
 - Optional: `paste_label`, `steps_title`, `steps`, `lede`. For apps that can't run a shell, use `agent_html` + `extra_html`, and list the product fields the page needs in `requires` (see `claude-desktop.json`).
+- App retired? Don't delete its host file: published links must keep working. Add `"retired": {"date", "who", "use": "<new slug>", "still", "note"}`. The page stays up with a notice that points people and agents to the new app's page, and the link lists stop offering it.
 
 Rules every host file follows:
 
